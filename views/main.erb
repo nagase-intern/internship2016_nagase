@@ -1,0 +1,39 @@
+
+<h1>BBS</h1>
+<u1>
+    <% @text.each do |i| %>
+    <li value="<%= i.no %>">
+            <%= h i.name %><br>
+            <%= h i.maintext %><br>
+                <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</div></span><br><br>
+            </li>
+        
+    <% end %>
+    </u1>
+    <form action="/new" method="post">
+        <br>
+        <h3>新規入力</h3>
+<p><label>名前<br><input type="text" name="name" size="40" maxlength="20"></label></p>
+<p>
+    <label>本文<br>
+<textarea name="maintext" rows="5" cols="50"></textarea></label><br>
+<input type="submit" value="送信"><input type="reset" value="リセット">
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    $('.deleteCmd').click(function(){
+        var el = $(this).parent();
+    
+    if (window.confirm('delete?')){
+        $.post('/delete',{
+            id: el.data('no')
+        },function(){
+            el.fadeOut(800);
+        });
+    }
+    })
+</script>
+
+<a href=/home/>return</a><br>
+
