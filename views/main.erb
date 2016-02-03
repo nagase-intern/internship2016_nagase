@@ -1,39 +1,39 @@
 
 <h1>BBS</h1>
-<u1>
+<ul>
     <% @text.each do |i| %>
-    <li value="<%= i.no %>">
-            <%= h i.name %><br>
-            <%= h i.maintext %><br>
-                <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</div></span><br><br>
-            </li>
-        
+    <li data-id="<%= i.no %>">
+        <%= i.no %>.
+        <%= i.name %><br>
+        <%= i.maintext %>
+        <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</span>
+    </li>
     <% end %>
-    </u1>
-    <form action="/new" method="post">
-        <br>
-        <h3>新規入力</h3>
-<p><label>名前<br><input type="text" name="name" size="40" maxlength="20"></label></p>
-<p>
+</ul>
+<form action="/new/" method="post">
+    <br>
+    <h3>新規入力</h3>
+    <p><label>名前<br><input type="text" name="name" size="40" maxlength="20"></label></p>
     <label>本文<br>
-<textarea name="maintext" rows="5" cols="50"></textarea></label><br>
-<input type="submit" value="送信"><input type="reset" value="リセット">
+    <textarea name="maintext" rows="5" cols="50"></textarea></label><br>
+    <input type="submit" value="送信"><input type="reset" value="リセット">
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
     $('.deleteCmd').click(function(){
         var el = $(this).parent();
-    
-    if (window.confirm('delete?')){
-        $.post('/delete',{
-            id: el.data('no')
+    console.log(el);
+    if (window.confirm('delete?')) {
+        alert(el.data('id'));
+        $.post('/delete/',{
+            no: el.data('id')
         },function(){
             el.fadeOut(800);
         });
     }
-    })
+    });
 </script>
 
-<a href=/home/>return</a><br>
+<p><a href=/>return</a></p>
 

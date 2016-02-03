@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
+require "pry"
 
 ActiveRecord::Base.establish_connection(
   adapter:   'sqlite3',
@@ -11,7 +12,7 @@ helpers do
     include  Rack::Utils
     alias_method :h, :escape_html
 end
-class Bbs < ActiveRecord::Base
+class Bbs< ActiveRecord::Base
 end
 
 get '/' do
@@ -29,12 +30,16 @@ get '/main/' do
 end
 
 
-post '/new' do
+post '/new/' do
     Bbs.create({:name => params[:name],:maintext => params[:maintext]})
     redirect '/main/'
 end
 
-post '/delete' do
-    Bbs.find(params[:id]).destroy
-    #redirect '/main/'
+post '/delete/' do
+  # binding.pry
+   (Bbs.find(params[:no])).destroy
+   #(Bbs.where(no: :no)).destroy
+   #del=Bds.find_by no:':no'
+   #del.destroy
+    redirect '/main/'
 end
