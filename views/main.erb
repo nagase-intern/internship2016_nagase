@@ -4,7 +4,7 @@
     <% @text.each do |i| %>
         <li data-id="<%= i["no"] %>">
             <%= i["no"] %>.
-            <%= i["name"] %><br>
+            <%= i["name"] %><%=i["trip"] %><br>
             <%= i["maintext"] %>
             <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</span>
             
@@ -14,7 +14,7 @@
 <form action="/new/" method="post">
     <br>
     <h3>新規入力</h3>
-    <p><label>名前<br><input type="text" name="name" size="40" maxlength="20"></label></p>
+    <p><label>名前<br><input type="text" name="name" size="40" maxlength="40"></label></p>
     <label>本文<br>
     <textarea name="maintext" rows="5" cols="50"></textarea></label><br>
     <input type="submit" value="送信"><input type="reset" value="リセット">
