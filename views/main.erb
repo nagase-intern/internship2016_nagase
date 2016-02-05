@@ -2,12 +2,12 @@
 <h1>BBS</h1>
 <ul>
     <% @text.each do |i| %>
-    <li data-id="<%= i.no %>">
-        <%= i.no %>.
-        <%= i.name %><br>
-        <%= i.maintext %>
-        <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</span>
-    </li>
+        <li data-id="<%= i["no"] %>">
+            <%= i["no"] %>.
+            <%= i["name"] %><br>
+            <%= i["maintext"] %>
+            <span class="deleteCmd" style="cursor:pointer;color: #0099FF">[削除]</span>
+        </li>
     <% end %>
 </ul>
 <form action="/new/" method="post">
@@ -17,21 +17,23 @@
     <label>本文<br>
     <textarea name="maintext" rows="5" cols="50"></textarea></label><br>
     <input type="submit" value="送信"><input type="reset" value="リセット">
+    <!--<input type="file" name="a" accept="image/jpeg,image/png,image/gif" > -->
 </form>
+<p><script>data(id).max</script></p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
     $('.deleteCmd').click(function(){
-        var el = $(this).parent();
-    console.log(el);
-    if (window.confirm('delete?')) {
-        alert(el.data('id'));
-        $.post('/delete/',{
-            no: el.data('id')
-        },function(){
-            el.fadeOut(800);
-        });
-    }
+            var el = $(this).parent();
+            console.log(el);
+            if (window.confirm('delete?')) {
+                <!-- alert(el.data('id')); -->
+                $.post('/delete/',{
+                    no: el.data('id')
+                },function(){
+                    el.fadeOut(800);
+            });
+        }
     });
 </script>
 

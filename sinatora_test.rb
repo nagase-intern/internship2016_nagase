@@ -4,19 +4,16 @@ require 'active_record'
 require "pry"
 
 ActiveRecord::Base.establish_connection(
-  adapter:   'sqlite3',
-  database:  "./bbs.db"
+    adapter:   'sqlite3',
+    database:  "./bbs.db"
 )
 
 helpers do
     include  Rack::Utils
     alias_method :h, :escape_html
 end
-class Bbs< ActiveRecord::Base
-end
 
 get '/' do
-   
     erb :index
 end
 
@@ -25,21 +22,17 @@ get '/home/' do
 end
 
 get '/main/' do
-    @text = Bbs.order("no desc").all
+    @text = ActiveRecord::Base.connection.execute("select * from bbs order by no desc;")
     erb :main
 end
 
-
 post '/new/' do
-    Bbs.create({:name => params[:name],:maintext => params[:maintext]})
+    ActiveRecord::Base.connection.execute("INSERT INTO bbs(name,maintext) VALUES('#{params[:name]}','#{params[:maintext]}');")
     redirect '/main/'
 end
 
 post '/delete/' do
-  # binding.pry
-   (Bbs.find(params[:no])).destroy
-   #(Bbs.where(no: :no)).destroy
-   #del=Bds.find_by no:':no'
-   #del.destroy
+    ActiveRecord::Base.connection.execute("DELETE FROM bbs WHERE no is #{params[:no]};")
     redirect '/main/'
 end
+
