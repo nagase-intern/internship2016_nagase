@@ -45,6 +45,9 @@ end
 
 def tripcreate(str,n)
     trip=str[n+1..-1]
+    if trip==""
+       trip=" " 
+    end
     key= (trip + "H.").slice(1, 2)
     key = key.gsub(/[^\.-z]/, ".")
     key = key.tr(":;<=>?@[\\]^_`", "ABCDEFGabcdef")
